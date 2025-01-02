@@ -9,12 +9,12 @@ class User(models.Model):
     date_joined = models.DateTimeField(default=now)
     is_active = models.BooleanField()
 
-    def __init__(self, username, email, password, is_active):
-        super().__init__()
-        self.username = username
-        self.email = email
-        self.password = password
-        self.is_active = is_active
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.username = kwargs.get('username', '')
+        self.email = kwargs.get('email', '')
+        self.password = kwargs.get('password', '')
+        self.is_active = kwargs.get('is_active', True)
 
     def save(self, *args, **kwargs):
         self.email = self.email.lower()
