@@ -9,9 +9,6 @@ class User(models.Model):
     date_joined = models.DateTimeField(default=now)
     is_active = models.BooleanField(default=True)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def save(self, *args, **kwargs):
         # 이메일을 소문자로 저장
         self.email = self.email.lower()

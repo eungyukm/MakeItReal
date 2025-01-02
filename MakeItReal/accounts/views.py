@@ -12,10 +12,10 @@ def login_result(request):
         intput_password = request.POST['password']
         print(input_email)
         print(intput_password)
-        user = User.objects.filter(email=input_email)
-
+        user = User.objects.filter(email=input_email).first()
+        
         if user is not None:
-            if user.model.password == intput_password:
+            if user.password == intput_password:
                 return render(request, 'accounts/login.html')
             else:
                 print('패스워드가 다릅니다.')
