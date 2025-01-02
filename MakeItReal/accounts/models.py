@@ -7,16 +7,13 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     date_joined = models.DateTimeField(default=now)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.username = kwargs.get('username', '')
-        self.email = kwargs.get('email', '')
-        self.password = kwargs.get('password', '')
-        self.is_active = kwargs.get('is_active', True)
 
     def save(self, *args, **kwargs):
+        # 이메일을 소문자로 저장
         self.email = self.email.lower()
         if not self.date_joined:
             self.date_joined = now()
