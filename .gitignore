@@ -165,3 +165,6 @@ Client/Library
 *.sln
 *.csproj
 Client/UserSettings
+Client/Temp
+*.user
+Client/obj
