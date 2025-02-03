@@ -14,8 +14,11 @@ public class ChatManager : MonoBehaviour
     [SerializeField] private Button SendMessageButton;
     [SerializeField] private TMP_InputField Chat_InputField;
 
+    private GPTManager GPTManager;
+
     private void Awake()
     {
+        GPTManager = GetComponent<GPTManager>();
         SendMessageButton.onClick.AddListener(AddChatMessage);
     }
 
@@ -27,7 +30,17 @@ public class ChatManager : MonoBehaviour
     public void AddChatMessage()
     {
         GameObject chatListGO = Instantiate(ChatListGO, Contents.transform);
-        chatListGO.GetComponent<ChatMessage>().SetChatMessage(Chat_InputField.text);
+        string userMessage = Chat_InputField.text;
+        chatListGO.GetComponent<ChatMessage>().SetChatMessage(userMessage);
         Chat_InputField.text = "";
+        
+        // GPT Send Prompt
+        GPTManager.RequestGPT(userMessage);
+    }
+
+    public void AddGPTChatMessage(string responseMessage)
+    {
+        GameObject chatListGO = Instantiate(ChatListGO, Contents.transform);
+        chatListGO.GetComponent<ChatMessage>().SetChatMessage(responseMessage);
     }
 }
