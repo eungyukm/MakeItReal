@@ -1,18 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HudManager : MonoBehaviour
 {
     [SerializeField] private Button ChatButton;
+    [SerializeField] private Button QuestButton;
+    
     private bool isActiveChatUI = false;
     private ChatManager ChatManager;
 
     private void Awake()
     {
         ChatButton.onClick.AddListener(OnClickChatButton);
+        QuestButton.onClick.AddListener(OnClickQuestButton);
     }
 
     void Start()
@@ -22,14 +22,12 @@ public class HudManager : MonoBehaviour
 
     private void OnClickChatButton()
     {
-        Debug.Log("OnClick!");
         isActiveChatUI = !isActiveChatUI;
         ChatManager.ShowChattingUI(isActiveChatUI);
     }
 
-    
-    void Update()
+    private void OnClickQuestButton()
     {
-        
+        QuestManager.Get().StatQuest();
     }
 }
